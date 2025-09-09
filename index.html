@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Okelloh - Blockchain Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0066cc;
+            --accent: #ff6b35;
+            --dark: #0a0a0b;
+            --darker: #050506;
+            --light: #1a1a1b;
+            --gray: #888;
+            --white: #ffffff;
+            --green: #00ff88;
+            --purple: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .circuit-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, var(--primary) 1px, transparent 1px),
+                linear-gradient(0deg, var(--primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: circuit-move 20s linear infinite;
+        }
+
+        @keyframes circuit-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(10, 10, 11, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--primary);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            text-shadow: 0 0 20px var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--green));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--green), var(--purple));
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease-in-out infinite, glitch 2s ease-in-out infinite;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            padding: 15px 35px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Crypto particles */
+        .crypto-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            animation: float-particle 8s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            position: relative;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .section-title::before {
+            content: '<';
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .section-title::after {
+            content: '/>';
+            color: var(--primary);
+            margin-left: 10px;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, var(--light) 0%, var(--darker) 100%);
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.1);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--purple), var(--green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 6rem;
+            margin: 0 auto;
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .about-text {
+            color: var(--white);
+        }
+
+        .about-text h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--darker);
+            position: relative;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, var(--light), var(--dark));
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--green));
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.4);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            color: var(--white);
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+        }
+
+        .skill-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--dark);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, var(--light), var(--darker));
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-image::before {
+            transform: translateX(100%);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 1rem;
+            color: var(--white);
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+            border: 1px solid var(--primary);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .contact .section-title {
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateX(10px);
+            color: var(--darker);
+        }
+
+        .contact-method-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group.double {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--white);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--darker);
+            border-top: 1px solid var(--primary);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .footer p {
+            color: var(--gray);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .form-group.double {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .profile-avatar {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="circuit-lines"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">₿LOCK.DEV</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="crypto-particles">
+            <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;">₿</div>
+            <div class="particle" style="top: 30%; right: 15%; animation-delay: 1s;">Ξ</div>
+            <div class="particle" style="bottom: 40%; left: 20%; animation-delay: 2s;">⟐</div>
+            <div class="particle" style="top: 60%; right: 25%; animation-delay: 3s;">◊</div>
+            <div class="particle" style="bottom: 20%; right: 10%; animation-delay: 4s;">₳</div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">ERICK OKELLOH</h1>
+            <p class="hero-subtitle">BLOCKCHAIN DEVELOPER</p>
+            <p class="hero-description">Building the future of decentralized applications with cutting-edge blockchain technology, smart contracts, and Web3 innovations.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="cta-button">View Projects</a>
+                <a href="#contact" class="cta-button cta-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about">
+        <h2 class="section-title fade-in">About</h2>
+        <div class="about-content fade-in">
+            <div class="about-image">
+                <div class="profile-avatar">₿</div>
+            </div>
+            <div class="about-text">
+                <h3>Blockchain Architect & Smart Contract Developer</h3>
+                <p>With over 6 years of experience in blockchain development, I specialize in creating robust, scalable, and secure decentralized applications. My expertise spans across multiple blockchain networks including Ethereum, Polygon, Solana, and Hyperledger.</p>
+                <p>I'm passionate about leveraging blockchain technology to solve real-world problems and create innovative solutions that push the boundaries of what's possible in the decentralized ecosystem.</p>
+                <p>From DeFi protocols to NFT marketplaces, I've architected and deployed smart contracts that have processed millions of dollars in transactions while maintaining the highest security standards.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Move</span>
+                    <span class="tech-tag">Rust</span>
+                    <span class="tech-tag">Web3.js</span>
+                    <span class="tech-tag">Typescript</span>
+                    <span class="tech-tag">Walrus</span>
+                    <span class="tech-tag">Slush</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section skills">
+        <h2 class="section-title fade-in">Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <div class="skill-icon">🔗</div>
+                <h3>Smart Contracts</h3>
+                <p>Expert in Move, Rust, and Vyper. Developed secure and gas-optimized smart contracts for DeFi, NFTs, DAOs, and various blockchain applications.</p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">⛓️</div>
+                <h3>Blockchain Networks</h3>
+                <p>Extensive experience with Sui, Polygon, Binance Smart Chain, Solana, Avalanche, and Hyperledger Fabric for enterprise solutions.</p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">🌐</div>
+                <h3>Web3 Integration</h3>
+                <p>Building seamless Web3 interfaces using Web3.js, Ethers.js, and various wallet integrations for optimal user experience.</p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">🛡️</div>
+                <h3>Security Auditing</h3>
+                <p>Conducting comprehensive smart contract audits, implementing best security practices, and ensuring protocol safety against common vulnerabilities.</p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">💰</div>
+                <h3>DeFi Protocols</h3>
+                <p>Architecting complex DeFi applications including AMMs, lending protocols, yield farming, and liquidity mining platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section projects">
+        <h2 class="section-title fade-in">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">🏦</div>
+                <div class="project-content">
+                    <h3>DefiVault Protocol</h3>
+                    <p>A comprehensive DeFi lending and borrowing platform with automated yield optimization. Features include flash loans, liquidation mechanisms, and cross-chain compatibility.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Audit</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Solidity</span>
+                        <span class="project-tag">Hardhat</span>
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">Ethereum</span>
+                        <span class="project-tag">Polygon</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">🎨</div>
+                <div class="project-content">
+                    <h3>NFT Marketplace Pro</h3>
+                    <p>A next-generation NFT marketplace with advanced features like fractional ownership, NFT staking, royalty distribution, and cross-chain trading capabilities.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Docs</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Solidity</span>
+                        <span class="project-tag">IPFS</span>
+                        <span class="project-tag">Next.js</span>
+                        <span class="project-tag">OpenSea</span>
+                        <span class="project-tag">ERC-721</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">🗳️</div>
+                <div class="project-content">
+                    <h3>DecentralizedDAO</h3>
+                    <p>A governance platform for decentralized autonomous organizations with proposal creation, voting mechanisms, treasury management, and token-based governance.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Whitepaper</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Solidity</span>
+                        <span class="project-tag">OpenZeppelin</span>
+                        <span class="project-tag">Vue.js</span>
+                        <span class="project-tag">Gnosis Safe</span>
+                        <span class="project-tag">ERC-20</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">⚡</div>
+                <div class="project-content">
+                    <h3>Lightning DEX</h3>
+                    <p>High-performance decentralized exchange built on Solana with orderbook matching, automated market making, and cross-chain bridge integration.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Analytics</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Rust</span>
+                        <span class="project-tag">Solana</span>
+                        <span class="project-tag">Anchor</span>
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">WebSockets</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">🏢</div>
+                <div class="project-content">
+                    <h3>Enterprise Blockchain</h3>
+                    <p>Private blockchain solution for enterprise supply chain management with smart contracts for asset tracking, verification, and automated compliance.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Case Study</a>
+                        <a href="#" class="project-link">Documentation</a>
+                        <a href="#" class="project-link">Demo</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Hyperledger</span>
+                        <span class="project-tag">Node.js</span>
+                        <span class="project-tag">Docker</span>
+                        <span class="project-tag">Kubernetes</span>
+                        <span class="project-tag">REST API</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">🔄</div>
+                <div class="project-content">
+                    <h3>Cross-Chain Bridge</h3>
+                    <p>Secure multi-chain bridge enabling seamless asset transfers between Ethereum, BSC, Polygon, and Avalanche with minimal fees and maximum security.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Security Report</a>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Solidity</span>
+                        <span class="project-tag">Chainlink</span>
+                        <span class="project-tag">Multi-sig</span>
+                        <span class="project-tag">LayerZero</span>
+                        <span class="project-tag">Web3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-content fade-in">
+            <div class="contact-info">
+                <h3>Let's Build the Future</h3>
+                <p>Ready to revolutionize your project with blockchain technology? I'm here to help you navigate the Web3 landscape and create innovative solutions that matter.</p>
+                <div class="contact-methods">
+                    <a href="mailto:erickokelloh11@gmail.com" class="contact-method">
+                        <div class="contact-method-icon">📧</div>
+                        <span>erickokelloh11@gmail.com</span>
+                    </a>
+                    <a href="https://linkedin.com/in/erick-okelo" class="contact-method">
+                        <div class="contact-method-icon">💼</div>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                    <a href="https://github.com/E-Okelloh" class="contact-method">
+                        <div class="contact-method-icon">🐙</div>
+                        <span>GitHub Portfolio</span>
+                    </a>
+                    <a href="https://t.me/" class="contact-method">
+                        <div class="contact-method-icon">💬</div>
+                        <span>Telegram</span>
+                    </a>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group double">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Project Type (DeFi, NFT, DAO, etc.)" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Describe your blockchain project..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Launch Project</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">💼</a>
+                <a href="#" class="social-link">🐙</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">💬</a>
+            </div>
+            <p>&copy; 2024 Erick Okelloh. Building the decentralized future.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar effects on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(5, 5, 6, 0.98)';
+                navbar.style.boxShadow = '0 5px 30px rgba(0, 212, 255, 0.2)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 11, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission with blockchain theme
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = this.querySelector('input[placeholder="Your Name"]').value;
+            const email = this.querySelector('input[placeholder="Your Email"]').value;
+            const projectType = this.querySelector('input[placeholder="Project Type (DeFi, NFT, DAO, etc.)"]').value;
+            const message = this.querySelector('textarea').value;
+            
+            if (!name || !email || !projectType || !message) {
+                alert('Please fill in all fields to proceed with your blockchain project.');
+                return;
+            }
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Simulate blockchain transaction
+            submitBtn.textContent = 'Processing Transaction...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = 'Confirming Block...';
+                setTimeout(() => {
+                    alert('🚀 Message successfully deployed to the blockchain! I\'ll review your project proposal and get back to you within 24 hours.');
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            }, 2000);
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.background = 'rgba(5, 5, 6, 0.98)';
+            navLinks.style.padding = '2rem';
+            navLinks.style.borderTop = '1px solid var(--primary)';
+        });
+
+        // Enhanced hover effects for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+                this.style.transition = 'all 0.4s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Skill cards glow effect
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 60px rgba(0, 212, 255, 0.6)';
+                this.style.borderColor = 'var(--green)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.2)';
+                this.style.borderColor = 'var(--primary)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const particles = document.querySelectorAll('.particle');
+            
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            
+            particles.forEach((particle, index) => {
+                const speed = 0.1 + (index * 0.05);
+                particle.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Dynamic typing effect for hero title (optional enhancement)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect after page load
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                setTimeout(() => {
+                    typeWriter(heroTitle, originalText, 150);
+                }, 1000);
+            }
+        });
+
+        // Add blockchain network status indicator (cosmetic)
+        function addNetworkStatus() {
+            const status = document.createElement('div');
+            status.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(45deg, var(--green), var(--primary));
+                color: white;
+                padding: 10px 15px;
+                border-radius: 20px;
+                font-family: 'Courier New', monospace;
+                font-size: 12px;
+                z-index: 1001;
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+                animation: pulse 2s ease-in-out infinite;
+            `;
+            status.innerHTML = '🟢 Mainnet Connected';
+            document.body.appendChild(status);
+        }
+
+        // Add CSS for pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.8; transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize network status
+        setTimeout(addNetworkStatus, 2000);
+    </script>
+</body>
+</html>
